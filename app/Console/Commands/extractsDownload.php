@@ -30,20 +30,23 @@ class extractsDownload extends Command
         $encryptedDisk = Storage::disk("encrypted");
         $backupDisk = Storage::disk("backup");
         
-        $Listado = $bankDisk->listContents("", true);
+        $Listado = collect($bankDisk->listContents("", true));
+        
         // funcion para ordenar el contenido segun la longitud de los archivos, el tercer parametro indica si es descendente
-        // $Listado = $Listado->sortBy("lastModified", SORT_REGULAR, false);
-        dd($Listado);
-        $Archivos = collect();
+        $Listado = $Listado->sortBy("lastModified", SORT_REGULAR, false);
+        
+        $Listado = $Listado->filter(function ($item) {
+            return $item['type'] === 'file'; // solo archivos
+        });
+        // dd($Listado);
         
         foreach($Listado as $Archivo) {
-            $Archivos->push($Archivo);
             // Leer contenido desde el banco
-            // $contenido = $bankDisk->get($Archivo['path']);
+            $contenido = $bankDisk->get($Archivo['path']);
 
-            // // copiar archivo en local
-            // $encryptedDisk->put($Archivo['path'], $contenido);
-            // $backupDisk->put($Archivo['path'], $contenido);
+            // copiar archivo en local
+            $encryptedDisk->put($Archivo['path'], $contenido);
+            $backupDisk->put($Archivo['path'], $contenido);
         }
         $X=0;
     }
