@@ -4,17 +4,34 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void {
         $schedule->command("app:update")
-            ->environments(["local", "production", "testing"])
+            // ->environments(["production", "testing"])
             ->hourly()
             ->withoutOverlapping()
             ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
         ;
+        
+        // $schedule->command("bank:download")
+            // ->environments(["local", "production", "testing"])
+            // ->hourly()
+            // ->everyMinute()
+            // ->withoutOverlapping()
+            // ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
+        // ;
+        
+        // $schedule->command("bank:decrypt")
+            // ->environments(["local", "production", "testing"])
+            // ->hourly()
+            // ->everyMinute()
+            // ->withoutOverlapping()
+            // ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
+        // ;
     }
 
     /**

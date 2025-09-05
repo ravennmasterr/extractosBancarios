@@ -87,7 +87,7 @@ return [
         
         'encrypted' => [
             'driver' => 'local',
-            'root' => storage_path('files/encryptedFiles'),
+            'root' => storage_path('files/DS4/MT940'),
             'throw' => false,
         ],
         

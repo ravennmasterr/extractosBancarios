@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class decrypt extends Command
+class extractsDecrypt extends Command
 {
     /**
      * The name and signature of the console command.
@@ -43,6 +43,8 @@ class decrypt extends Command
             
             $command = "gpg --import $privateKey && gpg --batch --yes --pinentry-mode loopback --passphrase 'H2H_Zetagas' -o {$destino} -d {$origen}";
             exec($command, $output, $return);
+            
+            $encryptedDisk->delete($Archivo['path']);
         }
     }
 }
