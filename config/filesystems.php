@@ -47,6 +47,12 @@ return [
             'report' => false,
         ],
         
+        'logs' => [
+            'driver' => 'local',
+            'root' => storage_path('logs'),
+            'throw' => false,
+        ],
+        
         'bank' => [
             'driver' => 'sftp',
             'host' => env('SFTP_HOST'),
