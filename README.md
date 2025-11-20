@@ -88,8 +88,8 @@ icacls "C:\laragon\www\extractosDevelop\storage\files\DS4" /grant 'extractosDev:
 icacls "C:\laragon\www\extractosDevelop\storage\files\DS4" /grant 'extractosDev:M' /T
 
 
-# Dentro del directorio raíz del chroot crea una “carpeta virtual” /upload que apunta a la ubicación externa. (No funciona en powershell)
-mklink /D C:\laragon\www\extractosDevelop\storage\files\DS4\upload "C:\laragon\www\extractosDevelop\storage\files\filesToUpload"
+# Dentro del directorio raíz del chroot crea una “carpeta virtual” /H2H que apunta a la ubicación externa. (No funciona en powershell)  NOTA. Esta opcion se maneja con el comando artisan storage:link
+mklink /D C:\laragon\www\extractosDevelop\storage\files\DS4\H2H "C:\laragon\www\extractosDevelop\storage\files\filesToUpload"
 
 # /D → directorio.
 

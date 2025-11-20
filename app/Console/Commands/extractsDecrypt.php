@@ -26,9 +26,13 @@ class extractsDecrypt extends Command
      */
     public function handle(){
         // Lee los archivos y directorios de manera no recursiva dentro del directorio como una coleccion
-        $encryptedDisk = Storage::disk("encrypted");
-        $decryptedDisk = Storage::disk("decrypted");
-        $privateKey = Storage::disk("files")->path("h2h_BI_privada.asc");
+        $encryptedDisk = Storage::disk("encryptedDownload");
+        $decryptedDisk = Storage::disk("decryptedFiles");
+        
+        $privateKeyName = config("app.private_key_name");
+        $privateKeyPhrase = config("app.private_key_phrase");
+        $privateKey = Storage::disk("files")->path($privateKeyName);
+        
         $Listado = collect($encryptedDisk->listContents("", true));
         // funcion para ordenar el contenido segun la longitud de los archivos, el tercer parametro indica si es descendente
         $Listado = $Listado->sortBy("lastModified", SORT_REGULAR, false);
@@ -41,10 +45,10 @@ class extractsDecrypt extends Command
             $origen = escapeshellarg($origen);
             $destino = escapeshellarg($destino);
             
-            $command = "gpg --import $privateKey && gpg --batch --yes --pinentry-mode loopback --passphrase 'H2H_Zetagas' -o {$destino} -d {$origen}";
+            $command = "gpg --import $privateKey && gpg --batch --yes --pinentry-mode loopback --passphrase $privateKeyPhrase -o {$destino} -d {$origen}";
             exec($command, $output, $return);
             
-            $encryptedDisk->delete($Archivo['path']);
+            // $encryptedDisk->delete($Archivo['path']);
         }
     }
 }

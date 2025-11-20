@@ -53,7 +53,7 @@ return [
             'throw' => false,
         ],
         
-        'bank' => [
+        'bankToDownload' => [
             'driver' => 'sftp',
             'host' => env('SFTP_HOST'),
         
@@ -79,6 +79,16 @@ return [
             // 'useAgent' => true,
         ],
         
+        'bankToUpload' => [
+            'driver' => 'sftp',
+            'host' => env('SFTP_HOST'),
+            'username' => env('SFTP_USERNAME'),
+            'password' => env('SFTP_PASSWORD'),
+            'port' => env('SFTP_PORT', 22),
+            'root' => env('SFTP_ROOT', 'Entrada'),
+            'timeout' => 30,
+        ],
+        
         'files' => [
             'driver' => 'local',
             'root' => storage_path('files'),
@@ -91,27 +101,27 @@ return [
             'throw' => false,
         ],
         
-        'encrypted' => [
+        'encryptedDownload' => [
             'driver' => 'local',
             'root' => storage_path('files/DS4/MT940'),
             'throw' => false,
         ],
         
-        'backup' => [
+        'encryptedBackup' => [
             'driver' => 'local',
             'root' => storage_path('files/encryptedBackup'),
             'throw' => false,
         ],
         
-        'decrypted' => [
+        'decryptedFiles' => [
             'driver' => 'local',
             'root' => storage_path('files/decryptedFiles'),
             'throw' => false,
         ],
         
-        'gpgHome' => [
+        'toUpload' => [
             'driver' => 'local',
-            'root' => storage_path('files/gpgHome'),
+            'root' => storage_path('files/encryptedToUpload'),
             'throw' => false,
         ],
         
@@ -142,7 +152,8 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        // public_path('storage') => storage_path('app/public'),
+        storage_path('files\DS4\H2H') => storage_path('files/encryptedToUpload'),
     ],
 
 ];

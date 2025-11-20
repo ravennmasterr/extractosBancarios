@@ -9,7 +9,7 @@ Route::get('/speak', function () {
 
 Route::get('/', function () {
     // Lee los archivos y directorios de manera no recursiva dentro del directorio como una coleccion
-    $disk = Storage::disk("bank");
+    $disk = Storage::disk("bankToDownload");
     $Listado = collect($disk->listContents("", true));
     // funcion para ordenar el contenido segun la longitud de los archivos, el tercer parametro indica si es descendente
     $Listado = $Listado->sortBy("lastModified", SORT_REGULAR, false);
@@ -63,7 +63,7 @@ Route::get('/copy/{name}', function ($name){
     // return $name;
     /* Copiar archivos entre discos, Al ejecutar $privado→readStream($fileName) se comenzará la descarga y, mientras se van descargando los bytes se van escribiendo en el disco local con $Publico->writeStream().*/
     // $Publico = Storage::disk("downloadFiles");
-    $privado = Storage::disk("bank");
+    $privado = Storage::disk("bankToDownload");
     
     if(!$privado->exists($name))
         return "No existe el archivo solicitado";

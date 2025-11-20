@@ -26,9 +26,9 @@ class extractsDownload extends Command
      */
     public function handle() {
         // Lee los archivos y directorios de manera no recursiva dentro del directorio como una coleccion
-        $bankDisk = Storage::disk("bank");
-        $encryptedDisk = Storage::disk("encrypted");
-        $backupDisk = Storage::disk("backup");
+        $bankDisk = Storage::disk("bankToDownload");
+        $encryptedDisk = Storage::disk("encryptedDownload");
+        $backupDisk = Storage::disk("encryptedBackup");
         
         $Listado = collect($bankDisk->listContents("", true));
         

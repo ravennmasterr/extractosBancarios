@@ -122,5 +122,8 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
+    
+    // Decrypt data
+    'private_key_name' => env('PRIVATE_KEY_NAME', 'h2h_BI_privada.asc'),
+    'private_key_phrase' => env('PRIVATE_KEY_PHRASE', 'H2H_Zetagas'),
 ];
