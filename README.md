@@ -89,7 +89,8 @@ icacls "C:\laragon\www\extractosDevelop\storage\files\DS4" /grant 'extractosDev:
 
 
 # Dentro del directorio raíz del chroot crea una “carpeta virtual” /H2H que apunta a la ubicación externa. (No funciona en powershell)  NOTA. Esta opcion se maneja con el comando artisan storage:link
-mklink /D C:\laragon\www\extractosDevelop\storage\files\DS4\H2H "C:\laragon\www\extractosDevelop\storage\files\filesToUpload"
+# NO USAR SYSLINK LOS ACCESOS DIRECTOR NO FUNCIONAN AL MOMENTO DE CARGAR ARCHIVOS, NO PERMITEN LA ESCRITURA YA QUE ESTA FUERA DE CHROOT
+<!-- mklink /D C:\laragon\www\extractosDevelop\storage\files\DS4\H2H "C:\laragon\www\extractosDevelop\storage\files\encryptedToUpload" -->
 
 # /D → directorio.
 

@@ -89,18 +89,6 @@ return [
             'timeout' => 30,
         ],
         
-        'files' => [
-            'driver' => 'local',
-            'root' => storage_path('files'),
-            'throw' => false,
-        ],
-        
-        'downloadFiles' => [
-            'driver' => 'local',
-            'root' => storage_path('files/downloadFiles'),
-            'throw' => false,
-        ],
-        
         'encryptedDownload' => [
             'driver' => 'local',
             'root' => storage_path('files/DS4/MT940'),
@@ -121,7 +109,13 @@ return [
         
         'toUpload' => [
             'driver' => 'local',
-            'root' => storage_path('files/encryptedToUpload'),
+            'root' => storage_path('files\DS4\H2H\Entrada'),
+            'throw' => false,
+        ],
+        
+        'responseDownload' => [
+            'driver' => 'local',
+            'root' => storage_path('files\DS4\H2H\Respuesta'),
             'throw' => false,
         ],
         
@@ -153,7 +147,7 @@ return [
 
     'links' => [
         // public_path('storage') => storage_path('app/public'),
-        storage_path('files\DS4\H2H') => storage_path('files/encryptedToUpload'),
+        // storage_path('files\DS4\H2H') => storage_path('files/encryptedToUpload'),
     ],
 
 ];

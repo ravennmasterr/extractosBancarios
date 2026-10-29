@@ -48,7 +48,8 @@ class extractsDecrypt extends Command
             $command = "gpg --import $privateKey && gpg --batch --yes --pinentry-mode loopback --passphrase $privateKeyPhrase -o {$destino} -d {$origen}";
             exec($command, $output, $return);
             
-            // $encryptedDisk->delete($Archivo['path']);
+            if($return === 0)
+                $encryptedDisk->delete($Archivo['path']);
         }
     }
 }

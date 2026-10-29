@@ -25,29 +25,35 @@ class extractsDownload extends Command
      * Execute the console command.
      */
     public function handle() {
-        // Lee los archivos y directorios de manera no recursiva dentro del directorio como una coleccion
+        $this->info("Downloading extracts");
+        
+        // prepare file locations
         $bankDisk = Storage::disk("bankToDownload");
-        $encryptedDisk = Storage::disk("encryptedDownload");
         $backupDisk = Storage::disk("encryptedBackup");
+        $count = 0;
         
-        $Listado = collect($bankDisk->listContents("", true));
-        
-        // funcion para ordenar el contenido segun la longitud de los archivos, el tercer parametro indica si es descendente
-        $Listado = $Listado->sortBy("lastModified", SORT_REGULAR, false);
-        
-        $Listado = $Listado->filter(function ($item) {
-            return $item['type'] === 'file'; // solo archivos
-        });
-        // dd($Listado);
-        
-        foreach($Listado as $Archivo) {
-            // Leer contenido desde el banco
-            $contenido = $bankDisk->get($Archivo['path']);
+        // Read only the files non recursive
+        foreach($bankDisk->files() as $filename) {
+            // Get the file content
+            $content = $bankDisk->get($filename);
 
-            // copiar archivo en local
-            $encryptedDisk->put($Archivo['path'], $contenido);
-            $backupDisk->put($Archivo['path'], $contenido);
+            // Encrypted file backup
+            $backupDisk->put($filename, $content);
+            
+            // Select the required disk
+            if (str_starts_with(strtolower($filename), 'f'))
+                $encryptedDisk = Storage::disk("encryptedDownload");
+                
+            else
+                $encryptedDisk = Storage::disk("responseDownload");
+            
+            // local encrypted file
+            if ($encryptedDisk->put($filename, $content))
+                $bankDisk->delete($filename);
+        
+            $count++;        
         }
-        $X=0;
+        
+        $this->info("Download $count files complete");
     }
 }

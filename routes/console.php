@@ -24,6 +24,14 @@ Schedule::command("bank:download")
     ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
 ;
 
+Schedule::command("bank:upload")
+    ->environments(["local", "production", "testing"])
+    ->hourly()
+    ->everyMinute()
+    ->withoutOverlapping()
+    ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
+;
+
 // Schedule::command("bank:decrypt")
     // ->environments(["local", "production", "testing"])
     // ->hourly()
