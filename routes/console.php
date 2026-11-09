@@ -18,16 +18,14 @@ Schedule::command("app:update")
 
 Schedule::command("bank:download")
     ->environments(["local", "production", "testing"])
-    ->hourly()
-    ->everyMinute()
+    ->everyTwentyMinutes()
     ->withoutOverlapping()
     ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
 ;
 
 Schedule::command("bank:upload")
     ->environments(["local", "production", "testing"])
-    ->hourly()
-    ->everyMinute()
+    ->everyTwentyMinutes()
     ->withoutOverlapping()
     ->appendOutputTo(Storage::disk("logs")->path("schedule.log"))
 ;
